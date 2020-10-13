@@ -65,6 +65,7 @@ We got 4 binding ways here:
 - OneWay – all changes flow only from B to A;
 - Reverse – changing A changes B, but if B has any logic and can alter the value, it sends altered value back to A;
 - Once – only one change (B to A), and then they are divorced.
+
 Your class containing a property has to support **INotifyPropertyChanged** interface or must contain an event named **{YourPropertyNamed}Changed**.
 If you are too lazy to write all that boilerplate code (as me), I created a **PropertyWrapper<T>** class for you, so you can just wrap all your lovely little pieces of data in that thing. So the binding process looks like:
 ```c#
@@ -82,8 +83,8 @@ Oh, one more thing. Setting **null** value to one of the sides will throw an exc
 Good luck. And don’t forget to look on [Wikipedia](https://en.wikipedia.org/wiki/Ariadne) for who is Ariadne if you don’t know still.
 ____
 # Ariadne.Framework
-Ariadne.Framework is a simple UI-framework which is aimed to create small or middle-sized apps. It’s based on MVVM pattern but allows you to couple Model and ViewModel together, so you can focus on logic and representation rather than data flow. You can find an usage example here in [Mazeraptor]() repository;
-It's currently in early phase so you have to define bindings and contexts manually. Which means writing a boilerplate code. So it got a lot of planned features.
+Ariadne.Framework is a simple UI-framework which is aimed to create small or middle-sized apps. It’s based on MVVM pattern but allows you to couple Model and ViewModel together, so you can focus on logic and representation rather than data flow. You can find an usage example here in [Mazeraptor]() repository.
+It's currently in early stage of development so you have to define bindings and contexts manually. Which means writing a boilerplate code. So it got a lot of planned features.
 - [ ] Automatic properties binding. You just place an attribute on which flow type this property uses.
 - [ ] Automatic child views creation using fabrics and binding.
 - [ ] More clear parent–children relationships.
