@@ -80,10 +80,12 @@ void Bind()
 }
 ```
 Oh, one more thing. Setting **null** value to one of the sides will throw an exception. It’s a strange behaviour so I have to investigate more in this topic.
+
 Good luck. And don’t forget to look on [Wikipedia](https://en.wikipedia.org/wiki/Ariadne) for who is Ariadne if you don’t know still.
 ____
 # Ariadne.Framework
 Ariadne.Framework is a simple UI-framework which is aimed to create small or middle-sized apps. It’s based on MVVM pattern but allows you to couple Model and ViewModel together, so you can focus on logic and representation rather than data flow. You can find an usage example here in [Mazeraptor]() repository.
+
 It's currently in early stage of development so you have to define bindings and contexts manually. Which means writing a boilerplate code. So it got a lot of planned features.
 - [ ] Automatic properties binding. You just place an attribute on which flow type this property uses.
 - [ ] Automatic child views creation using fabrics and binding.
