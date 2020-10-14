@@ -10,6 +10,7 @@ namespace Bery0za.Ariadne.Framework
 
         void AttachChild<UContext>(UContext context, IBindable<UContext> bindable)
             where UContext : IContext;
+
         void Invalidate(bool affectChilds);
         void Bind(bool affectChilds);
         void Unbind(bool affectChilds);

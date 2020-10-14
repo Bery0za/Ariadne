@@ -11,8 +11,8 @@ namespace Bery0za.Ariadne.Framework
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected List<IBinding> _bindings = new List<IBinding>();
-        
-        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+
+        protected void NotifyPropertyChanged([CallerMemberName]String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

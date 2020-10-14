@@ -18,10 +18,7 @@ namespace Bery0za.Ariadne
             set => Set(value);
         }
 
-        public PropertyWrapper()
-        {
-            
-        }
+        public PropertyWrapper() { }
 
         public PropertyWrapper(T initialValue)
         {

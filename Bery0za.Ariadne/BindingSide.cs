@@ -60,20 +60,20 @@ namespace Bery0za.Ariadne
                             handler();
                         }
                     };
+
                     d = h;
 
                     break;
                 }
+
                 case PropertyWrapper<T> _:
                 {
-                    PropertyChanged<T> h = (v, pv) =>
-                    {
-                        handler();
-                    };
+                    PropertyChanged<T> h = (v, pv) => { handler(); };
                     d = h;
 
                     break;
                 }
+
                 default:
                 {
                     if (ChangeEvent?.Name == _propertyInfo.Name + "Changed")
@@ -97,12 +97,14 @@ namespace Bery0za.Ariadne
             _expressionBody = _propertyExpression.Body;
 
             _propertyInfo = PropertyInfoFromExpression(_expressionBody);
+
             if (_propertyInfo == null)
             {
                 throw new BindingException("Incorrect property expression was used.");
             }
 
             Target = TargetFromExpression(_expressionBody);
+
             if (Target == null)
             {
                 throw new BindingException("Cannot determine target object property belongs to.");
@@ -164,13 +166,20 @@ namespace Bery0za.Ariadne
                 {
                     case MemberTypes.Property:
                         objReference = objReference?.GetType()
-                                                   .GetProperty(mi.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                                                   .GetProperty(mi.Name,
+                                                                BindingFlags.Instance
+                                                                | BindingFlags.Public
+                                                                | BindingFlags.NonPublic)
                                                    ?.GetValue(objReference, null);
 
                         break;
+
                     case MemberTypes.Field:
                         objReference = objReference?.GetType()
-                                                   .GetField(mi.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                                                   .GetField(mi.Name,
+                                                             BindingFlags.Instance
+                                                             | BindingFlags.Public
+                                                             | BindingFlags.NonPublic)
                                                    ?.GetValue(objReference);
 
                         break;
@@ -190,10 +199,12 @@ namespace Bery0za.Ariadne
                     ei = t.GetType().GetEvent("PropertyChanged");
 
                     break;
+
                 case PropertyWrapper<T> t:
                     ei = t.GetType().GetEvent("ValueChanged");
 
                     break;
+
                 default:
                     ei = target.GetType().GetEvent(propInfo.Name + "Changed");
 
@@ -226,10 +237,19 @@ namespace Bery0za.Ariadne
         {
             Type delegateType = eventInfo.EventHandlerType;
             MethodInfo invokeMethod = delegateType.GetMethod("Invoke");
-            ParameterExpression[] @params = invokeMethod.GetParameters().Select(p => Expression.Parameter(p.ParameterType, p.Name)).ToArray();
+
+            ParameterExpression[] @params = invokeMethod
+                                            .GetParameters()
+                                            .Select(p => Expression.Parameter(p.ParameterType, p.Name))
+                                            .ToArray();
+
             ConstantExpression instance = action.Target == null ? null : Expression.Constant(action.Target);
             MethodCallExpression call = Expression.Call(instance, action.Method);
-            Expression body = invokeMethod.ReturnType == typeof(void) ? (Expression)call : Expression.Convert(call, invokeMethod.ReturnType);
+
+            Expression body = invokeMethod.ReturnType == typeof(void)
+                ? (Expression)call
+                : Expression.Convert(call, invokeMethod.ReturnType);
+
             LambdaExpression expr = Expression.Lambda(delegateType, body, @params);
 
             return expr.Compile();

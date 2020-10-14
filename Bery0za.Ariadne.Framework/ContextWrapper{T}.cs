@@ -6,20 +6,14 @@ namespace Bery0za.Ariadne.Framework
 {
     public delegate void ContextChanged();
 
-    public class ContextWrapper<T> : PropertyWrapper<T>, IContextWrapper<T> 
+    public class ContextWrapper<T> : PropertyWrapper<T>, IContextWrapper<T>
     {
         public event ContextChanged ContextChanged;
 
-        public ContextWrapper()
-        {
-
-        }
+        public ContextWrapper() { }
 
         public ContextWrapper(T context)
-            : base(context)
-        {
-
-        }
+            : base(context) { }
 
         public Func<T, IEnumerable<IContext>> Children { get; set; }
 
@@ -51,7 +45,7 @@ namespace Bery0za.Ariadne.Framework
         {
             return DefineChildren(Value, Children);
         }
-        
+
         private static IEnumerable<IContext> DefineChildren(T value, Func<T, IEnumerable<IContext>> children)
         {
             if (!EqualityComparer<T>.Default.Equals(value, default))
@@ -60,6 +54,7 @@ namespace Bery0za.Ariadne.Framework
                 {
                     case IContext cValue:
                         return new List<IContext> { cValue };
+
                     case IEnumerable<IContext> cValues:
                         return cValues;
                 }
@@ -73,10 +68,6 @@ namespace Bery0za.Ariadne.Framework
             return Enumerable.Empty<IContext>();
         }
 
-        public void Destroy()
-        {
-
-        }
+        public void Destroy() { }
     }
 }
-

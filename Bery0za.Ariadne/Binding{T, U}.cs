@@ -15,10 +15,7 @@ namespace Bery0za.Ariadne
         internal Delegate _handlerA;
         internal Delegate _handlerB;
 
-        internal Binding()
-        {
-
-        }
+        internal Binding() { }
 
         public void Bind()
         {
@@ -27,7 +24,7 @@ namespace Bery0za.Ariadne
 
         public void Invalidate(BindingSide<T> side)
         {
-            if (_sideA ==  side)
+            if (_sideA == side)
             {
                 Invalidate(BindingSide.A);
             }
@@ -54,13 +51,17 @@ namespace Bery0za.Ariadne
                     {
                         Binder.RunAssign(_assignBA);
                     }
+
                     break;
+
                 case BindingFlow.OneWay:
                     if (side == BindingSide.B)
                     {
                         Binder.RunAssign(_assignBA);
                     }
+
                     break;
+
                 case BindingFlow.Reverse:
                     if (side == BindingSide.A)
                     {
@@ -80,8 +81,10 @@ namespace Bery0za.Ariadne
 
         public void Subscribe(BindingSide side)
         {
-            if (side == BindingSide.A && _handlerA != null) _sideA.ChangeEvent.AddEventHandler(_sideA.Target, _handlerA);
-            else if (side == BindingSide.B && _handlerB != null) _sideB.ChangeEvent.AddEventHandler(_sideB.Target, _handlerB);
+            if (side == BindingSide.A && _handlerA != null)
+                _sideA.ChangeEvent.AddEventHandler(_sideA.Target, _handlerA);
+            else if (side == BindingSide.B && _handlerB != null)
+                _sideB.ChangeEvent.AddEventHandler(_sideB.Target, _handlerB);
         }
 
         public void Unsubscribe()
@@ -92,8 +95,10 @@ namespace Bery0za.Ariadne
 
         public void Unsubscribe(BindingSide side)
         {
-            if (side == BindingSide.A && _handlerA != null) _sideA.ChangeEvent.RemoveEventHandler(_sideA.Target, _handlerA);
-            else if (side == BindingSide.B && _handlerB != null) _sideB.ChangeEvent.RemoveEventHandler(_sideB.Target, _handlerB);
+            if (side == BindingSide.A && _handlerA != null)
+                _sideA.ChangeEvent.RemoveEventHandler(_sideA.Target, _handlerA);
+            else if (side == BindingSide.B && _handlerB != null)
+                _sideB.ChangeEvent.RemoveEventHandler(_sideB.Target, _handlerB);
         }
 
         public void Unbind()

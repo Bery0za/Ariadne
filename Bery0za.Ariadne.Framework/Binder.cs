@@ -4,7 +4,7 @@ using System.Linq;
 namespace Bery0za.Ariadne.Framework
 {
     public class Binder<TContext> : IBinder<TContext>
-        where TContext: IContext
+        where TContext : IContext
     {
         public TContext Context { get; private set; }
         IContext IBinder.Context => Context;
@@ -12,7 +12,9 @@ namespace Bery0za.Ariadne.Framework
         public IEnumerable<IBinder> Children => _children;
 
         private readonly List<IBinder> _children = new List<IBinder>();
-        private readonly Dictionary<IBindable<TContext>, List<IBinding>> _bindings = new Dictionary<IBindable<TContext>, List<IBinding>>();
+
+        private readonly Dictionary<IBindable<TContext>, List<IBinding>> _bindings =
+            new Dictionary<IBindable<TContext>, List<IBinding>>();
 
         public Binder(TContext context, IBinder parent = null)
         {
@@ -215,4 +217,3 @@ namespace Bery0za.Ariadne.Framework
         }
     }
 }
-

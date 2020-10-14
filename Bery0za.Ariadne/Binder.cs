@@ -93,8 +93,10 @@ namespace Bery0za.Ariadne
             if (flow == BindingFlow.TwoWay || flow == BindingFlow.Reverse)
             {
                 b._assignAB = adapterAB != null
-                              ? sideB.Assigner(sideA, adapterAB)
-                              : throw new BindingException("Adapter from A to B must be defined for the chosen binding flow."); ;
+                    ? sideB.Assigner(sideA, adapterAB)
+                    : throw new BindingException("Adapter from A to B must be defined for the chosen binding flow.");
+
+                ;
             }
 
             return Bind(b);
@@ -109,14 +111,25 @@ namespace Bery0za.Ariadne
                     case BindingFlow.OneWay:
                         binding._handlerB = binding._sideB.MakeHandler(OneWay(binding));
                         break;
+
                     case BindingFlow.TwoWay:
-                        binding._handlerA = binding._sideA.MakeHandler(TwoWay(binding, BindingSide.B, binding._assignAB));
-                        binding._handlerB = binding._sideB.MakeHandler(TwoWay(binding, BindingSide.A, binding._assignBA));
+                        binding._handlerA =
+                            binding._sideA.MakeHandler(TwoWay(binding, BindingSide.B, binding._assignAB));
+
+                        binding._handlerB =
+                            binding._sideB.MakeHandler(TwoWay(binding, BindingSide.A, binding._assignBA));
+
                         break;
+
                     case BindingFlow.Reverse:
-                        binding._handlerA = binding._sideA.MakeHandler(TwoWay(binding, BindingSide.A, binding._assignAB));
-                        binding._handlerB = binding._sideB.MakeHandler(TwoWay(binding, BindingSide.A, binding._assignBA));
+                        binding._handlerA =
+                            binding._sideA.MakeHandler(TwoWay(binding, BindingSide.A, binding._assignAB));
+
+                        binding._handlerB =
+                            binding._sideB.MakeHandler(TwoWay(binding, BindingSide.A, binding._assignBA));
+
                         break;
+
                     case BindingFlow.Once:
                         binding._handlerB = binding._sideB.MakeHandler(Once(binding));
                         break;
@@ -144,10 +157,7 @@ namespace Bery0za.Ariadne
 
         private static Action OneWay<T, U>(Binding<T, U> binding)
         {
-            return () =>
-            {
-                RunAssign(binding._assignBA);
-            };
+            return () => { RunAssign(binding._assignBA); };
         }
 
         private static Action TwoWay<T, U>(Binding<T, U> binding, BindingSide side, Delegate assign)
